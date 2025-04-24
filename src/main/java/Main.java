@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.IntStream;
 
 
@@ -26,18 +25,15 @@ public class Main {
         functions.add(s -> s.length() == 4);
         functions.add(s -> s.length() == 5);
 
-        System.out.println(Arrays.toString(texts));
         for (Predicate<String> p : functions) {
             int pIndex = functions.indexOf(p);
-            Runnable myRunnable = () -> {
-                for (String t : goodTexts){
+            new Thread(() -> {
+                for (String t : goodTexts) {
                     if (p.test(t)) {
                         goodNickCounts[pIndex].getAndIncrement();
                     }
                 }
-            };
-
-            myRunnable.run();
+            }).start();
         }
 
         for (int i = 0; i < goodNickCounts.length; i++) {
