@@ -18,7 +18,7 @@ public class Main {
 
         Thread isPalindrome = new Thread(() -> {
             Arrays.stream(texts)
-                    .filter((x -> x.contentEquals(new StringBuilder(x))))
+                    .filter((x -> x.contentEquals(new StringBuilder(x).reverse())))
                     .forEach(Main::countGoodNickLength);
 
         });
@@ -55,18 +55,14 @@ public class Main {
     static void countGoodNickLength(String s) {
         switch (s.length()) {
             case 3:
-                System.out.println(s.length() + "длина");
-                System.out.println(s);
-                System.out.println(length3.incrementAndGet());
+                length3.incrementAndGet();
                 break;
+
             case 4:
-                System.out.println(s.length() + "длина");
-                System.out.println(s);
                 length4.incrementAndGet();
                 break;
+
             case 5:
-                System.out.println(s.length() + "длина");
-                System.out.println(s);
                 length5.incrementAndGet();
                 break;
         }
